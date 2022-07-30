@@ -14,7 +14,7 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: ambassador
-      MYSQL_USER: root
+      MYSQL_USER: ahmed_deftoner
       MYSQL_PASSWORD: ahmed
       MYSQL_ROOT_PASSWORD: ahmed
     volumes:
