@@ -10,13 +10,13 @@ services:
       - db
 
   db:
-    image: mysql:5.7.39
+    image: mysql:5.7.22
     restart: always
     environment:
       MYSQL_DATABASE: ambassador
-      MYSQL_USER: ahmed_deftoner
-      MYSQL_PASSWORD: ahmed
-      MYSQL_ROOT_PASSWORD: ahmed
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - .dbdata:/var/lib/mysql
     ports:
