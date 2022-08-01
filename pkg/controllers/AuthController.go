@@ -1,8 +1,10 @@
 package controllers
 
 import (
+	"github.com/ahmed-deftoner/ambassador/pkg/database"
 	"github.com/ahmed-deftoner/ambassador/pkg/models"
 	"github.com/gofiber/fiber/v2"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func Register(c *fiber.Ctx) error {
@@ -19,13 +21,17 @@ func Register(c *fiber.Ctx) error {
 		})
 	}
 
+	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 4)
+
 	user := models.User{
 		FirstName:    data["firstName"],
 		LastName:     data["lastName"],
 		Email:        data["email"],
+		Password:     string(password),
 		IsAmbassador: false,
 	}
-	return c.JSON(fiber.Map{
-		"message": "hello",
-	})
+
+	database.DB.Create(&user)
+
+	return c.JSON(user)
 }
