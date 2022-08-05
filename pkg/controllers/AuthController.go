@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"strconv"
 	"time"
 
@@ -51,7 +50,7 @@ func Login(c *fiber.Ctx) error {
 	var user models.User
 	//var x int64
 	database.DB.Where("email = ?", data["email"]).First(&user)
-	fmt.Println(user)
+	//fmt.Println(user)
 
 	if user.Id == 0 {
 		c.Status(fiber.StatusBadRequest)
@@ -90,7 +89,7 @@ func Login(c *fiber.Ctx) error {
 
 	c.Cookie(&cookie)
 
-	return c.JSON(fiber.Map{
-		"message": "success",
-	})
+	return c.JSON( /*fiber.Map{
+			"message": "success",
+		}*/token)
 }
