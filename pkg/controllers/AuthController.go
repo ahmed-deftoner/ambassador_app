@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/ahmed-deftoner/ambassador/pkg/database"
 	"github.com/ahmed-deftoner/ambassador/pkg/models"
 	"github.com/gofiber/fiber/v2"
@@ -44,7 +46,9 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	var user models.User
-	database.DB.Where("email: ?", data["email"]).First(&user)
+	var x int64
+	database.DB.Count(&x)
+	fmt.Println(x)
 
 	if user.Id == 0 {
 		c.Status(fiber.StatusBadRequest)
