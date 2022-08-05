@@ -46,9 +46,9 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	var user models.User
-	var x int64
-	database.DB.Count(&x)
-	fmt.Println(x)
+	//var x int64
+	database.DB.First(&user)
+	fmt.Println(user)
 
 	if user.Id == 0 {
 		c.Status(fiber.StatusBadRequest)
