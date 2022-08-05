@@ -47,7 +47,7 @@ func Login(c *fiber.Ctx) error {
 
 	var user models.User
 	//var x int64
-	database.DB.First(&user)
+	database.DB.Where("email = ?", data["email"]).First(&user)
 	fmt.Println(user)
 
 	if user.Id == 0 {
