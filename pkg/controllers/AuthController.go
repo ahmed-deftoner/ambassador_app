@@ -2,9 +2,12 @@ package controllers
 
 import (
 	"fmt"
+	"strconv"
+	"time"
 
 	"github.com/ahmed-deftoner/ambassador/pkg/database"
 	"github.com/ahmed-deftoner/ambassador/pkg/models"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -63,6 +66,13 @@ func Login(c *fiber.Ctx) error {
 			"message": "invalid password",
 		})
 	}
+
+	payload := jwt.StandardClaims{
+		Subject:   strconv.Itoa(int(user.Id)),
+		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+	}
+
+	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, payload).SignedString([]byte("secret"))
 
 	return c.JSON(user)
 }
